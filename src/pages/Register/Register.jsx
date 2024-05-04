@@ -1,16 +1,29 @@
 import { Link } from "react-router-dom";
 import login from "../../assets/images/login/login.svg"
+import { useContext } from "react";
+import { AuthContext } from "../../components/provider/ContextProvider";
+import google from '../../assets/social-icon/google.png'
+import github from '../../assets/social-icon/github.png'
 
 const Register = () => {
+    const { signUpUserWithEmailPass } = useContext(AuthContext)
     const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        const userInfo = { name, email, password }
-        console.log(userInfo);
+        // const userInfo = { name, email, password }
+        // console.log(userInfo);
+        signUpUserWithEmailPass(email, password)
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
         form.reset()
+
     }
     return (
         <div className="hero min-h-screen  flex justify-around gap-2 items-center">
@@ -46,8 +59,12 @@ const Register = () => {
                     </div>
                     <p className="text-center">Or Sign Up with</p>
                     <div className="flex justify-center items-center gap-3">
-                        <button>google</button>
-                        <button>github</button>
+                        <button >
+                            <img className='w-[50px]' src={google} alt="" />
+                        </button>
+                        <button >
+                            <img className='w-[33px]' src={github} alt="" />
+                        </button>
                     </div>
                     <p className="text-center">You have already account? <Link to="/login" className="text-[#ff3811]">Login</Link></p>
                 </form>
