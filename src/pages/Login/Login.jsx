@@ -1,11 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from "../../assets/images/login/login.svg"
 import { useContext } from "react";
 import { AuthContext } from "../../components/provider/ContextProvider";
 import google from '../../assets/social-icon/google.png'
 import github from '../../assets/social-icon/github.png'
+import axios from "axios";
 
 const Login = () => {
+    const location = useLocation()
+    const navigate = useNavigate()
     const { signInUserWithEmailPass } = useContext(AuthContext)
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -14,13 +17,25 @@ const Login = () => {
         const password = form.password.value;
         signInUserWithEmailPass(email, password)
             .then(result => {
-                console.log(result);
+                const logInUser = result.user;
+                const user = { email }
+                console.log(logInUser);
+                axios.post(`http://localhost:5000/jwt`, user,{withCredentials:true})
+                    .then(data => {
+                        console.log(data.data);
+                        if (data.data.success) {
+                            navigate(location?.state ? location?.state : "/")
+                        }
+                    })
+
+                // get access token
+
+
+
             })
             .catch(error => {
                 console.log(error.message);
             })
-        // const userInfo = { email, password }
-        // console.log(userInfo);
 
         form.reset()
     }

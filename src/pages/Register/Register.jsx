@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from "../../assets/images/login/login.svg"
 import { useContext } from "react";
 import { AuthContext } from "../../components/provider/ContextProvider";
@@ -6,6 +6,8 @@ import google from '../../assets/social-icon/google.png'
 import github from '../../assets/social-icon/github.png'
 
 const Register = () => {
+    const location = useLocation()
+    const navigate = useNavigate()
     const { signUpUserWithEmailPass } = useContext(AuthContext)
     const handleSubmit = e => {
         e.preventDefault()
@@ -18,6 +20,9 @@ const Register = () => {
         signUpUserWithEmailPass(email, password)
             .then(result => {
                 console.log(result);
+                setTimeout(() => {
+                    navigate(location?.state ? location.state : "/")
+                }, 1000);
             })
             .catch(error => {
                 console.log(error.message);

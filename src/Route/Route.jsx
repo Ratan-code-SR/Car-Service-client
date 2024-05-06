@@ -7,6 +7,7 @@ import Error from '../pages/Error/Error.jsx'
 import Checkout from '../pages/Checkout/Checkout.jsx';
 import BookService from '../pages/BookService/BookService.jsx';
 import Bookings from '../pages/Bookings/Bookings.jsx';
+import PrivateRoute from '../components/protected/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
     {
@@ -28,11 +29,11 @@ const router = createBrowserRouter([
             },
             {
                 path:"/bookings",
-                element:<Bookings/>
+                element:<PrivateRoute><Bookings/></PrivateRoute>
             },
             {
                 path:"/checkout/:id",
-                element:<Checkout/>,
+                element:<PrivateRoute><Checkout/></PrivateRoute>,
                 loader:({params})=> fetch(`http://localhost:5000/services/${params.id}`)
             }
 

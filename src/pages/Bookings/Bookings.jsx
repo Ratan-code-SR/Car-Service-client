@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../components/provider/ContextProvider";
 import cartImg from "../../assets/images/checkout/checkout.png"
 import { update } from "firebase/database";
+import axios from "axios";
 
 const Bookings = () => {
     const [usersBookingsData, setUserBookingsData] = useState([])
@@ -10,10 +11,14 @@ const Bookings = () => {
     const url = `http://localhost:5000/bookings?email=${user?.email}`
 
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         setUserBookingsData(data)
+        //     })
+        axios.get(url,{withCredentials:true})
             .then(data => {
-                setUserBookingsData(data)
+                setUserBookingsData(data.data)
             })
     }, [url])
 
@@ -35,25 +40,7 @@ const Bookings = () => {
         }
 
     }
-    // const handleConfirm = (id) => {
-    //     fetch(`http://localhost:5000/bookings/${id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "content-type": "application/json"
-    //         },
-    //         body: JSON.stringify({ status: "confirm" })
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.modifiedCount > 0) {
-    //                 const remaining = usersBookingsData.filter(booking => booking._id !== id)
-    //                 const updated = usersBookingsData.find(booking => booking._id === id)
-    //                 updated.status === "confirm"
-    //                 const newBookings = [updated, ...remaining]
-    //                 setUserBookingsData(newBookings)
-    //             }
-    //         })
-    // }
+
     const handleConfirm = (id) => {
         fetch(`http://localhost:5000/bookings/${id}`, {
             method: "PATCH",
@@ -73,7 +60,7 @@ const Bookings = () => {
                 }
             })
     }
-    
+
     console.log(usersBookingsData);
     if (loading) {
         return <div className="text-center my-40">
