@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg"
 import { useContext } from "react";
 import { AuthContext } from "../../components/provider/ContextProvider";
-import { signOut } from "firebase/auth";
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext)
 

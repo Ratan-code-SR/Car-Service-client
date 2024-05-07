@@ -28,13 +28,13 @@ const router = createBrowserRouter([
                 element: <Login />
             },
             {
-                path:"/bookings",
-                element:<PrivateRoute><Bookings/></PrivateRoute>
+                path: "/bookings",
+                element: <PrivateRoute><Bookings /></PrivateRoute>
             },
             {
-                path:"/checkout/:id",
-                element:<PrivateRoute><Checkout/></PrivateRoute>,
-                loader:({params})=> fetch(`http://localhost:5000/services/${params.id}`)
+                path: "/checkout/:id",
+                element: <PrivateRoute><Checkout /></PrivateRoute>,
+                loader: ({ params }) => fetch(`https://car-service-server-ochre.vercel.app/services/${params.id}`)
             }
 
         ],

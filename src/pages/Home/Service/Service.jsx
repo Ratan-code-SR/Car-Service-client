@@ -6,7 +6,7 @@ import { useState } from "react";
 const Service = () => {
     const [services, setServices] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/services`)
+        fetch(`https://car-service-server-ochre.vercel.app/services`)
             .then(res => res.json())
             .then(data => {
                 setServices(data)
@@ -24,7 +24,7 @@ const Service = () => {
             <div className="my-5 grid grid-cols-3 justify-center items-center gap-3">
 
                 {
-                    services.map((service) => 
+                    services.map((service) =>
                         <ServiceCard key={service._id} service={service} />
                     )
                 }

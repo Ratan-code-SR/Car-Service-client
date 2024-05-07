@@ -5,41 +5,41 @@ import { AuthContext } from "../../components/provider/ContextProvider";
 
 const Checkout = () => {
     const loadData = useLoaderData()
-    const {price,img,title,_id} = loadData;
-    const {user} = useContext(AuthContext)
+    const { price, img, title, _id } = loadData;
+    const { user } = useContext(AuthContext)
     // console.log(loadData);
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
-        const email= user?.email;
+        const email = user?.email;
         const date = form.date.value;
-     
+
         const order = {
-            customerName:name,
+            customerName: name,
             email,
             date,
             img,
             service: title,
-            service_id:_id,
-            price:price
+            service_id: _id,
+            price: price
         }
         console.log(order);
-      fetch(`http://localhost:5000/bookings`,{
-        method:"POST",
-        headers:{
-            'content-type':'application/json',
-        },
-        body:JSON.stringify(order)
-      })
-      .then(res=> res.json())
-      .then(data => {
-        console.log(data);
-        if(data.insertedId){
-            alert("post successful")
-        }
-      })
+        fetch(`https://car-service-server-ochre.vercel.app/bookings`, {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(order)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    alert("post successful")
+                }
+            })
     }
 
     return (

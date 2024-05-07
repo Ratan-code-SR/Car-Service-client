@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../components/provider/ContextProvider";
 import cartImg from "../../assets/images/checkout/checkout.png"
-import { update } from "firebase/database";
+// import { update } from "firebase/database";
 import axios from "axios";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Bookings = () => {
     const [usersBookingsData, setUserBookingsData] = useState([])
+    const axiosSecure = useAxiosSecure()
     const { user, loading } = useContext(AuthContext)
 
-    const url = `http://localhost:5000/bookings?email=${user?.email}`
+
+    const url = `/bookings?email=${user?.email}`
 
     useEffect(() => {
         // fetch(url)
@@ -16,16 +19,16 @@ const Bookings = () => {
         //     .then(data => {
         //         setUserBookingsData(data)
         //     })
-        axios.get(url,{withCredentials:true})
-            .then(data => {
-                setUserBookingsData(data.data)
+        axiosSecure.get(url)
+            .then(res => {
+                setUserBookingsData(res.data)
             })
-    }, [url])
+    }, [url, axiosSecure])
 
     const handleDelete = (id) => {
         const proceed = confirm("Are you sure?")
         if (proceed) {
-            fetch(`http://localhost:5000/bookings/${id}`, {
+            fetch(`https://car-service-server-ochre.vercel.app/bookings/${id}`, {
                 method: "DELETE"
             })
                 .then(res => res.json())
@@ -42,7 +45,7 @@ const Bookings = () => {
     }
 
     const handleConfirm = (id) => {
-        fetch(`http://localhost:5000/bookings/${id}`, {
+        fetch(`https://car-service-server-ochre.vercel.app/bookings/${id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json"

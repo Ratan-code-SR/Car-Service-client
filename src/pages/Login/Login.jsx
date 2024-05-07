@@ -20,7 +20,7 @@ const Login = () => {
                 const logInUser = result.user;
                 const user = { email }
                 console.log(logInUser);
-                axios.post(`http://localhost:5000/jwt`, user,{withCredentials:true})
+                axios.post(`https://car-service-server-ochre.vercel.app/jwt`, user, { withCredentials: true })
                     .then(data => {
                         console.log(data.data);
                         if (data.data.success) {
