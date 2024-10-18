@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import PropTypes from 'prop-types'; // ES6
+import PropTypes from 'prop-types';
 import auth from "../../firebase/firebase.config";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 
@@ -35,7 +35,6 @@ const ContextProvider = ({ children }) => {
         })
         return () => unsubscribed();
     }, [])
-    console.log(user);
 
     const info = { loading,logOut, signUpUserWithEmailPass, signInUserWithEmailPass, googleSignIn,user }
     return (
