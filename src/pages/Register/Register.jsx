@@ -8,7 +8,7 @@ import github from '../../assets/social-icon/github.png'
 const Register = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const { signUpUserWithEmailPass,googleSignIn } = useContext(AuthContext)
+    const { signUpUserWithEmailPass, googleSignIn, githubSignIn } = useContext(AuthContext)
     const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;
@@ -38,6 +38,15 @@ const Register = () => {
             });
     };
 
+    const handleGithubLogin = () => {
+        githubSignIn()
+            .then(() => {
+                navigate(location?.state ? location.state : "/");
+            })
+            .catch(error => {
+                console.error("github Sign-In error:", error);
+            });
+    }
     return (
         <div className="hero min-h-screen  flex justify-around gap-2 items-center">
             <div className="w-1/5" >
@@ -71,17 +80,17 @@ const Register = () => {
                         <button className="bg-[#ff3811] py-2 px-3 text-white rounded-md">Sign Up</button>
                     </div>
                     <p className="text-center">Or Sign Up with</p>
-                    
+
                     <p className="text-center">You have already account? <Link to="/login" className="text-[#ff3811]">Login</Link></p>
                 </form>
                 <div className="flex justify-center items-center gap-3">
-                        <button onClick={handleGoogleSignIn} >
-                            <img className='w-[50px]' src={google} alt="" />
-                        </button>
-                        <button >
-                            <img className='w-[33px]' src={github} alt="" />
-                        </button>
-                    </div>
+                    <button onClick={handleGoogleSignIn} >
+                        <img className='w-[50px]' src={google} alt="" />
+                    </button>
+                    <button onClick={handleGithubLogin} >
+                        <img className='w-[33px]' src={github} alt="" />
+                    </button>
+                </div>
             </div>
         </div>
 
