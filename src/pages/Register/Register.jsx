@@ -8,14 +8,14 @@ import github from '../../assets/social-icon/github.png'
 const Register = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const { signUpUserWithEmailPass } = useContext(AuthContext)
+    const { signUpUserWithEmailPass,googleSignIn } = useContext(AuthContext)
     const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;
-        const name = form.name.value;
+        // const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        signUpUserWithEmailPass(name, email, password)
+        signUpUserWithEmailPass(email, password)
             .then(result => {
                 console.log(result);
                 setTimeout(() => {
@@ -28,6 +28,16 @@ const Register = () => {
         form.reset()
 
     }
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(() => {
+                navigate(location?.state ? location.state : "/");
+            })
+            .catch(error => {
+                console.error("Google Sign-In error:", error);
+            });
+    };
+
     return (
         <div className="hero min-h-screen  flex justify-around gap-2 items-center">
             <div className="w-1/5" >
@@ -61,16 +71,17 @@ const Register = () => {
                         <button className="bg-[#ff3811] py-2 px-3 text-white rounded-md">Sign Up</button>
                     </div>
                     <p className="text-center">Or Sign Up with</p>
-                    <div className="flex justify-center items-center gap-3">
-                        <button >
+                    
+                    <p className="text-center">You have already account? <Link to="/login" className="text-[#ff3811]">Login</Link></p>
+                </form>
+                <div className="flex justify-center items-center gap-3">
+                        <button onClick={handleGoogleSignIn} >
                             <img className='w-[50px]' src={google} alt="" />
                         </button>
                         <button >
                             <img className='w-[33px]' src={github} alt="" />
                         </button>
                     </div>
-                    <p className="text-center">You have already account? <Link to="/login" className="text-[#ff3811]">Login</Link></p>
-                </form>
             </div>
         </div>
 
