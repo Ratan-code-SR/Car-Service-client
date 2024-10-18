@@ -1,9 +1,9 @@
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-
+import PropTypes from 'prop-types'; // ES6
 
 const ServiceCard = ({ service }) => {
-    console.log(service._id);
+    // console.log(service._id);
     return (
         <div className="card w-96 bg-base-100 shadow-xl">
             <figure><img className="w-full" src={service.img} alt="Shoes" /></figure>
@@ -18,5 +18,7 @@ const ServiceCard = ({ service }) => {
         </div>
     );
 };
-
+ServiceCard.propTypes = {
+    service: PropTypes.object, 
+ };
 export default ServiceCard;
