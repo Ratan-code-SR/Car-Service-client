@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-// import service from '../../assets/images/checkout/checkout.png'
 import { useContext } from "react";
 import { AuthContext } from "../../components/provider/ContextProvider";
 
@@ -7,7 +6,7 @@ const Checkout = () => {
     const loadData = useLoaderData()
     const { price, img, title, _id } = loadData;
     const { user } = useContext(AuthContext)
-    // console.log(loadData);
+
 
     const handleSubmit = (e) => {
         e.preventDefault()

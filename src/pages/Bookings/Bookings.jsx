@@ -14,11 +14,7 @@ const Bookings = () => {
     const url = `/bookings?email=${user?.email}`
 
     useEffect(() => {
-        // fetch(url)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         setUserBookingsData(data)
-        //     })
+
         axiosSecure.get(url)
             .then(res => {
                 setUserBookingsData(res.data)
