@@ -28,10 +28,6 @@ const Login = () => {
                         }
                     })
 
-                // get access token
-
-
-
             })
             .catch(error => {
                 console.log(error.message);

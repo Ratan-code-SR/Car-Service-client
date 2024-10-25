@@ -34,7 +34,6 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><Checkout /></PrivateRoute>,
                 loader: ({ params }) => fetch(`https://car-service-server-ochre.vercel.app/services/${params.id}`)
             }
-
         ],
     },
 ]);
